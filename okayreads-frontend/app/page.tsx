@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {useRouter} from 'next/navigation'
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   const features = [
     {
@@ -83,7 +85,7 @@ export default function Home() {
               <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium">
                 Sign In
               </button>
-              <button className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition">
+              <button className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition" onClick={() => router.push('/books')}>
                 Get Started
               </button>
             </div>
@@ -133,7 +135,7 @@ export default function Home() {
               <button className="w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded font-medium">
                 Sign In
               </button>
-              <button className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium">
+              <button className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium" onClick={() => router.push('/books')}>
                 Get Started
               </button>
             </div>
@@ -167,7 +169,7 @@ export default function Home() {
                 </button>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-500">
-                ✓ No credit card required • ✓ Completely free • ✓ Join instantly
+               ✓ Completely free • ✓ Join instantly
               </p>
             </div>
 
