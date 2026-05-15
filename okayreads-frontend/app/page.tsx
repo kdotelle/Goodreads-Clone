@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {useRouter} from 'next/navigation'
+import { useRouter } from "next/navigation";
+import Footer from "../components/common/Footer";
+import Header from "../components/common/Header";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,99 +52,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950">
       {/* Navigation */}
-      <nav className="fixed w-full top-0 z-50 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center space-x-2">
-                <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                  OkayReads
-                </span>
-              </Link>
-            </div>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#features"
-                className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-              >
-                Features
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-              >
-                How It Works
-              </a>
-              <a
-                href="#community"
-                className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-              >
-                Community
-              </a>
-              <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium">
-                Sign In
-              </button>
-              <button className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition" onClick={() => router.push('/books')}>
-                Get Started
-              </button>
-            </div>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden pb-4 space-y-2">
-              <a
-                href="#features"
-                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
-              >
-                Features
-              </a>
-              <a
-                href="#how-it-works"
-                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
-              >
-                How It Works
-              </a>
-              <a
-                href="#community"
-                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
-              >
-                Community
-              </a>
-              <button className="w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded font-medium">
-                Sign In
-              </button>
-              <button className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium" onClick={() => router.push('/books')}>
-                Get Started
-              </button>
-            </div>
-          )}
-        </div>
-      </nav>
-
+      <Header isHomePage={true} />
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-6xl mx-auto">
@@ -169,7 +80,7 @@ export default function Home() {
                 </button>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-500">
-               ✓ Completely free • ✓ Join instantly
+                ✓ Completely free • ✓ Join instantly
               </p>
             </div>
 
@@ -350,106 +261,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 dark:bg-black text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div className="col-span-1">
-              <h3 className="text-white font-bold mb-4 text-lg">OkayReads</h3>
-              <p className="text-sm text-gray-400">
-                The world&apos;s largest book database and community for
-                readers.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Apps
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Privacy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Terms
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-sm text-gray-400 mb-4 md:mb-0">
-                © 2026 OkayReads. All rights reserved.
-              </p>
-              <div className="flex space-x-6">
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
-                  Twitter
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
-                  Facebook
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
-                  Instagram
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
