@@ -51,9 +51,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950">
-      {/* Navigation */}
-
-      <Header isHomePage={true} />
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-6xl mx-auto">
@@ -259,9 +256,6 @@ export default function Home() {
           </button>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

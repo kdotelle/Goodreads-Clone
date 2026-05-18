@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/common/Footer";
 import Header from "../../components/common/Header";
+import BookCard from "../../components/Book/BookCard";
 
 export default function Books() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,6 +24,8 @@ export default function Books() {
     const data = await response.json();
     setBooks(data.items || []);
   };
+
+  console.log(books);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -48,8 +51,6 @@ export default function Books() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950">
-      <Header isHomePage={false} />
-
       {/* ── Page Header ── */}
       <section className="pt-24 pb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-6xl mx-auto">
@@ -174,27 +175,27 @@ export default function Books() {
           )}
 
           {/* Results */}
-          {/* {!isLoading && hasSearched && (
+          {!isLoading && hasSearched && (
             <>
               <div className="flex items-center justify-between mb-5">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {results.length > 0
-                    ? `${results.length} result${results.length !== 1 ? "s" : ""} for `
+                  {books.length > 0
+                    ? `${books.length} result${books.length !== 1 ? "s" : ""} for `
                     : "No results for "}
                   <span className="font-semibold text-gray-800 dark:text-gray-200">
-                    "{query}"
+                    {query}
                   </span>
                 </p>
-                {results.length > 0 && (
+                {books.length > 0 && (
                   <span className="text-xs text-gray-400 dark:text-gray-500">
                     Sorted by relevance
                   </span>
                 )}
               </div>
 
-              {results.length > 0 ? (
+              {books.length > 0 ? (
                 <div className="space-y-4">
-                  {results.map((book) => (
+                  {books.map((book) => (
                     <BookCard key={book.id} book={book} />
                   ))}
                 </div>
@@ -216,7 +217,7 @@ export default function Books() {
                 </div>
               )}
             </>
-          )} */}
+          )}
 
           {/* Pre-search state */}
           {!isLoading && !hasSearched && (
@@ -235,7 +236,6 @@ export default function Books() {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
