@@ -1,29 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/common/Footer";
 import Header from "../../components/common/Header";
 import BookCard from "../../components/Book/BookCard";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Books() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [books, setBooks] = useState([]);
+  const [sortedBooks, setSortedBooks] = useState([]);
 
-  const searchBooks = async () => {
-    const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
-    const BASE_URL = "https://www.googleapis.com/books/v1";
-    const response = await fetch(
-      `${BASE_URL}/volumes?q=${encodeURIComponent(query)}&key=${API_KEY}`,
-    );
-    if (!response.ok) throw new Error("Failed to fetch books");
-    const data = await response.json();
-    setBooks(data.items || []);
-  };
+  const sortItems = [
+    { label: "Relevance", value: "relevance" },
+    { label: "Newest", value: "newest" },
+    { label: "Title A - Z", value: "title_asc" },
+    { label: "Title Z - A", value: "title_desc" },
+  ];
 
   console.log(books);
 
@@ -33,13 +38,14 @@ export default function Books() {
     setHasSearched(false);
 
     const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
-    const BASE_URL = "https://www.googleapis.com/books/v1";
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
     const response = await fetch(
       `${BASE_URL}/volumes?q=${encodeURIComponent(query)}&key=${API_KEY}`,
     );
     if (!response.ok) throw new Error("Failed to fetch books");
     const data = await response.json();
     setBooks(data.items || []);
+    setSortedBooks(data.items || []);
 
     setIsLoading(false);
     setHasSearched(true);
@@ -47,6 +53,32 @@ export default function Books() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") handleSearch();
+  };
+
+  const toggleSortOrder = (value: string) => {
+    if (value == "relevance") {
+      setSortedBooks(books);
+    } else if (value == "newest") {
+      setSortedBooks(
+        books.toSorted(
+          (a, b) =>
+            Date.parse(b.volumeInfo.publishedDate) -
+            Date.parse(a.volumeInfo.publishedDate),
+        ),
+      );
+    } else if (value == "title_asc") {
+      setSortedBooks(
+        books.toSorted((a, b) =>
+          a.volumeInfo.title.localeCompare(b.volumeInfo.title),
+        ),
+      );
+    } else if (value == "title_desc") {
+      setSortedBooks(
+        books.toSorted((a, b) =>
+          b.volumeInfo.title.localeCompare(a.volumeInfo.title),
+        ),
+      );
+    }
   };
 
   return (
@@ -127,26 +159,6 @@ export default function Books() {
             </div>
 
             {/* Quick filter chips */}
-            <div className="flex flex-wrap gap-2 mt-4">
-              {[
-                "Fiction",
-                "Non-Fiction",
-                "Science Fiction",
-                "Mystery",
-                "Romance",
-                "Biography",
-              ].map((genre) => (
-                <button
-                  key={genre}
-                  onClick={() => {
-                    setQuery(genre);
-                  }}
-                  className="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:text-amber-700 dark:hover:text-amber-400 border border-gray-200 dark:border-slate-700 hover:border-amber-200 dark:hover:border-amber-800 rounded-full transition"
-                >
-                  {genre}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -186,16 +198,38 @@ export default function Books() {
                     {query}
                   </span>
                 </p>
+                {/*Add sorting by A-Z */}
                 {books.length > 0 && (
-                  <span className="text-xs text-gray-400 dark:text-gray-500">
-                    Sorted by relevance
+                  <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">
+                    Sort by
+                    <Select
+                      defaultValue="relevance"
+                      onValueChange={(value) => toggleSortOrder(value)}
+                    >
+                      <SelectTrigger className="h-8 w-32 text-xs font-medium bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-gray-300 rounded-lg px-3 hover:border-amber-400 dark:hover:border-amber-600 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-xl shadow-lg">
+                        <SelectGroup>
+                          {sortItems.map((item) => (
+                            <SelectItem
+                              key={item.value}
+                              value={item.value}
+                              className="text-xs text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:text-amber-700 dark:hover:text-amber-400 rounded-lg focus:bg-amber-50 dark:focus:bg-amber-950/40 focus:text-amber-700 dark:focus:text-amber-400 cursor-pointer"
+                            >
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </span>
                 )}
               </div>
 
               {books.length > 0 ? (
                 <div className="space-y-4">
-                  {books.map((book) => (
+                  {sortedBooks.map((book) => (
                     <BookCard key={book.id} book={book} />
                   ))}
                 </div>

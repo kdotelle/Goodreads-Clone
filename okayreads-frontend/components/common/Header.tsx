@@ -1,7 +1,9 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -12,10 +14,13 @@ interface HeaderProps {
 export default function Header({ isLoggedIn, username, isHomePage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const isHome = pathname == "/";
+  const isBooks = pathname.startsWith("/books");
 
   return (
     <nav className="fixed w-full top-0 z-50 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-slate-800">
-      {isHomePage && (
+      {isHome && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -114,7 +119,7 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
         </div>
       )}
 
-      {!isHomePage && (
+      {isBooks && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0">

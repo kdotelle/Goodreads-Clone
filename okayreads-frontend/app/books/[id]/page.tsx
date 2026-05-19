@@ -20,7 +20,7 @@ interface Book {
   };
 }
 
-async function getBook(id: string): Promise<GoogleBook> {
+async function getBook(id: string): Promise<Book> {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
   const res = await fetch(`${BASE_URL}/volumes/${id}?key=${API_KEY}`);
