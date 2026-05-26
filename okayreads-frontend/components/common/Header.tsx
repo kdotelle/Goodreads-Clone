@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -17,6 +18,8 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
   const pathname = usePathname();
   const isHome = pathname == "/";
   const isBooks = pathname.startsWith("/books");
+
+  const { data: session } = useSession();
 
   return (
     <nav className="fixed w-full top-0 z-50 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-slate-800">
@@ -46,15 +49,26 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
               >
                 How It Works
               </a>
+              {session && (
+              <>
+
               <a
                 href="#community"
                 className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
               >
                 Community
               </a>
-              <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium">
+              <a className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition">
+                Welcome {session.user.email}
+              </a>
+              </>
+              )}
+              {!session && (
+
+              <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium" onClick={() => signIn()}>
                 Sign In
               </button>
+              )}
               <button
                 className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
                 onClick={() => router.push("/books")}
@@ -137,21 +151,23 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
               >
                 Books
               </Link>
-              <a
-                href="#"
-                className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-              >
-                My Shelves
-              </a>
+              {session && (
+                <a
+                  href="#"
+                  className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                >
+                  My Shelves
+                </a>
+              )}
               <a
                 href="#"
                 className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
               >
                 Community
               </a>
-              <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium">
+              {!session && (<button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium" onClick={() => signIn()}>
                 Sign In
-              </button>
+              </button>)}
               <Link
                 className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
                 href="/books"
