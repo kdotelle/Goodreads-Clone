@@ -69,7 +69,10 @@ export default function Home() {
                 with fellow book lovers.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-1">
+                <button
+                  className="px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-1"
+                  onClick={() => router.push("/books")}
+                >
                   Start Reading Free
                 </button>
                 <button className="px-8 py-4 border-2 border-gray-300 dark:border-slate-700 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:border-amber-600 dark:hover:border-amber-500 transition">

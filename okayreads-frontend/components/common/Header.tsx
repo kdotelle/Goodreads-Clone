@@ -50,31 +50,34 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
                 How It Works
               </a>
               {session && (
-              <>
-
-              <a
-                href="#community"
-                className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-              >
-                Community
-              </a>
-              <a className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition">
-                Welcome {session.user.email}
-              </a>
-              </>
+                <>
+                  <a
+                    href="#community"
+                    className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                  >
+                    Community
+                  </a>
+                  <a className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition">
+                    Welcome {session.user.email}
+                  </a>
+                  <button
+                    className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
+                    onClick={() => signOut()}
+                  >
+                    Sign Out
+                  </button>
+                </>
               )}
               {!session && (
-
-              <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium" onClick={() => signIn()}>
-                Sign In
-              </button>
+                <>
+                  <button
+                    className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
+                    onClick={() => signIn()}
+                  >
+                    Sign In
+                  </button>
+                </>
               )}
-              <button
-                className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
-                onClick={() => router.push("/books")}
-              >
-                Get Started
-              </button>
             </div>
 
             {/* Mobile menu button */}
@@ -133,7 +136,7 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
         </div>
       )}
 
-      {isBooks && (
+      {!isHome && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0">
@@ -147,33 +150,51 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
             <div className="hidden md:flex items-center space-x-8">
               <Link
                 href="/books"
-                className="text-amber-600 dark:text-amber-500 font-medium transition"
+                className={
+                  pathname.startsWith("/books")
+                    ? "text-amber-600 dark:text-amber-500 font-medium transition"
+                    : "text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                }
               >
                 Books
               </Link>
               {session && (
-                <a
-                  href="#"
-                  className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-                >
-                  My Shelves
-                </a>
+                <>
+                  <Link
+                    href="/shelves"
+                    className={
+                      pathname.startsWith("/shelves")
+                        ? "text-amber-600 dark:text-amber-500 font-medium transition"
+                        : "text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                    }
+                  >
+                    My Shelves
+                  </Link>
+                  <a
+                    href="#"
+                    className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                  >
+                    Community
+                  </a>
+                  <a className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition">
+                    Welcome {session.user.email}
+                  </a>
+                  <button
+                    className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
+                    onClick={() => signOut()}
+                  >
+                    Sign Out
+                  </button>
+                </>
               )}
-              <a
-                href="#"
-                className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-              >
-                Community
-              </a>
-              {!session && (<button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium" onClick={() => signIn()}>
-                Sign In
-              </button>)}
-              <Link
-                className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
-                href="/books"
-              >
-                Get Started
-              </Link>
+              {!session && (
+                <button
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition font-medium"
+                  onClick={() => signIn()}
+                >
+                  Sign In
+                </button>
+              )}
             </div>
 
             <button
@@ -204,24 +225,39 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
               >
                 Books
               </Link>
-              <a
-                href="#"
-                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
-              >
-                My Shelves
-              </a>
-              <a
-                href="#"
-                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
-              >
-                Community
-              </a>
-              <button className="w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded font-medium">
-                Sign In
-              </button>
-              <button className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium">
-                Get Started
-              </button>
+              {session && (
+                <>
+                  <Link
+                    href="/shelves"
+                    className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
+                  >
+                    My Shelves
+                  </Link>
+                  <a
+                    href="#"
+                    className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
+                  >
+                    Community
+                  </a>
+                  <a className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded">
+                    {session.user.email}
+                  </a>
+                  <button
+                    className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium"
+                    onClick={() => signOut()}
+                  >
+                    Sign Out
+                  </button>
+                </>
+              )}
+              {!session && (
+                <button
+                  className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium"
+                  onClick={() => signIn()}
+                >
+                  Sign In
+                </button>
+              )}
             </div>
           )}
         </div>
