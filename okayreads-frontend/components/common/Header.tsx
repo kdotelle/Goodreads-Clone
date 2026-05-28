@@ -57,9 +57,12 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
                   >
                     Community
                   </a>
-                  <a className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition">
+                  <Link
+                    href={`/profile/${session.user.name}`}
+                    className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                  >
                     Welcome {session.user.email}
-                  </a>
+                  </Link>
                   <button
                     className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
                     onClick={() => signOut()}
@@ -160,25 +163,18 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
               </Link>
               {session && (
                 <>
-                  <Link
-                    href="/shelves"
-                    className={
-                      pathname.startsWith("/shelves")
-                        ? "text-amber-600 dark:text-amber-500 font-medium transition"
-                        : "text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
-                    }
-                  >
-                    My Shelves
-                  </Link>
                   <a
                     href="#"
                     className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
                   >
                     Community
                   </a>
-                  <a className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition">
+                  <Link
+                    href={`/profile/${session.user.name}`}
+                    className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-500 transition"
+                  >
                     Welcome {session.user.email}
-                  </a>
+                  </Link>
                   <button
                     className="px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-medium hover:shadow-lg transition"
                     onClick={() => signOut()}
@@ -227,21 +223,18 @@ export default function Header({ isLoggedIn, username, isHomePage }) {
               </Link>
               {session && (
                 <>
-                  <Link
-                    href="/shelves"
-                    className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
-                  >
-                    My Shelves
-                  </Link>
                   <a
                     href="#"
                     className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
                   >
                     Community
                   </a>
-                  <a className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded">
+                  <Link
+                    href={`/profile/${session.user.name}`}
+                    className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded"
+                  >
                     {session.user.email}
-                  </a>
+                  </Link>
                   <button
                     className="w-full px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded font-medium"
                     onClick={() => signOut()}
