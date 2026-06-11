@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signIn } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import ShelfList from "../../../components/Shelves/ShelfList";
@@ -83,10 +83,12 @@ export default function ProfilePage() {
     (mockUser.challenge.current / mockUser.challenge.goal) * 100,
   );
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
+  if (status === "loading") return <p>Loading...</p>;
   if (!session) {
     redirect("/api/auth/signin");
+    return null;
   }
 
   const tabs: { key: ProfileTab; label: string }[] = [
@@ -336,7 +338,7 @@ export default function ProfilePage() {
           )}
 
           {activeTab === "shelves" && (
-            <div className="text-center py-2 text-gray-500 dark:text-gray-400">
+            <div className="py-2 text-gray-500 dark:text-gray-400">
               <ShelfList />
             </div>
           )}

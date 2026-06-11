@@ -17,6 +17,7 @@ const handler = NextAuth({
   // use JWT sessions stored in a cookie. this will be updated when backend is added
   session: {
     strategy: "jwt",
+    maxAge: 1 * 24 * 60 * 60, // 1 day
   },
   callbacks: {
     async session({ session, token }) {
