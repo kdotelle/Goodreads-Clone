@@ -1,0 +1,6 @@
+@OkayReads.API_HostAddress = http://localhost:5255
+
+GET {{OkayReads.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
