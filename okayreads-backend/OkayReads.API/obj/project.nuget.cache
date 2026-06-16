@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8EV3xOm28wE=",
+  "dgSpecHash": "+Uqqn8sDiS4=",
   "success": true,
   "projectFilePath": "/Users/kristenl/Desktop/Projects/GoodReads-Clone/okayreads-backend/OkayReads.API/OkayReads.API.csproj",
   "expectedPackageFiles": [
+    "/Users/kristenl/.nuget/packages/coverlet.collector/6.0.4/coverlet.collector.6.0.4.nupkg.sha512",
     "/Users/kristenl/.nuget/packages/microsoft.aspnetcore.openapi/8.0.10/microsoft.aspnetcore.openapi.8.0.10.nupkg.sha512",
     "/Users/kristenl/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/kristenl/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
