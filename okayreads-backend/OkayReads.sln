@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OkayReads.API", "OkayReads.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OkayReads.Tests", "OkayReads.Tests\OkayReads.Tests.csproj", "{EF7E0B24-9384-415B-970A-14D07608F5E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OkayReads.Models", "OkayReads.Models\OkayReads.Models.csproj", "{57C3E4DC-C1BA-42D4-A97D-38910971D62E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OkayReads.Data", "OkayReads.Data\OkayReads.Data.csproj", "{FCC6782F-7F58-4585-864E-832D6B750432}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{EF7E0B24-9384-415B-970A-14D07608F5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF7E0B24-9384-415B-970A-14D07608F5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF7E0B24-9384-415B-970A-14D07608F5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C3E4DC-C1BA-42D4-A97D-38910971D62E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C3E4DC-C1BA-42D4-A97D-38910971D62E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C3E4DC-C1BA-42D4-A97D-38910971D62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C3E4DC-C1BA-42D4-A97D-38910971D62E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCC6782F-7F58-4585-864E-832D6B750432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCC6782F-7F58-4585-864E-832D6B750432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCC6782F-7F58-4585-864E-832D6B750432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCC6782F-7F58-4585-864E-832D6B750432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
