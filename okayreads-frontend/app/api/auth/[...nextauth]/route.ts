@@ -20,8 +20,15 @@ const handler = NextAuth({
     maxAge: 1 * 24 * 60 * 60, // 1 day
   },
   callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
     async session({ session, token }) {
       session.user.id = token.sub!;
+      session.accessToken = token.accessToken as string;
       return session;
     },
   },

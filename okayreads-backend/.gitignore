@@ -29,7 +29,7 @@ project.fragment.lock.json
 artifacts/
 
 # Entity Framework migrations 
-# **/Migrations/
+**/Migrations/
 
 # Test results
 **/TestResults/
@@ -43,3 +43,14 @@ Thumbs.db
 
 # Logs
 *.log
+
+# NuGet
+**/project.nuget.cache
+**/project.assets.json
+**/rider.project.model.nuget.info
+**/rider.project.restore.info
+*.nuget.props
+*.nuget.targets
+
+# NuGet packages folder
+**/packages/
