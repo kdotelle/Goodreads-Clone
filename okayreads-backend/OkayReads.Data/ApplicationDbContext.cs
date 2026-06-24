@@ -9,22 +9,54 @@ public class ApplicationDbContext : DbContext
     
     public DbSet<User> Users { get; set; }
     public DbSet<Book> Books { get; set; }
-    public DbSet<Shelf> Shelves {get; set;}
+    public DbSet<UserShelf> UserShelves {get; set;}
+    public DbSet<ShelfItem> ShelfItems {get; set;}
+    public DbSet<Review> Reviews {get; set;}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasIndex(u => u.ExternalId).IsUnique();
+            entity.HasIndex(u => u.Email).IsUnique();
+            entity.HasIndex(u => u.Username).IsUnique();
+        });
 
-        modelBuilder.Entity<Shelf>().HasData(
-            new Shelf { Id = 1, Name = "Currently Reading" },
-            new Shelf { Id = 2, Name = "Want to Read" },
-            new Shelf { Id = 3, Name = "Read" },
-            new Shelf { Id = 4, Name = "Did Not Finish" }
-        );
+        modelBuilder.Entity<Book>(entity => { entity.HasIndex(b => b.GoogleBooksId).IsUnique(); });
 
-        modelBuilder.Entity<Book>().HasData(
-            new Book {Id = 1, Title = "Handle With Care", Author = "Jodi Picoult", Description = "A girl is born with a disease that will cause her immense pain and suffering, and her parents must confront the question of what constitutes a valuable life.", PublishedDate = "2009-03-03", PageCount = 498},
-            new Book {Id = 2, Title = "Horton Hears a Who!", Author = "Dr. Seuss", Description = "Choose kindness with Horton the elephant and the Whos of Who-ville in Dr. Seuss’s classic picture book about caring for others!", PublishedDate = "2013-09-24", PageCount = 37 }
-        );
+        modelBuilder.Entity<ShelfItem>(entity =>
+        {
+            entity.HasIndex(s => new { s.UserId, s.BookId, s.UserShelfId }).IsUnique();
+
+            entity.HasOne(s => s.Book)
+                .WithMany(b => b.ShelfItems)
+                .HasForeignKey(s => s.BookId);
+
+            entity.HasOne(s => s.UserShelf)
+                .WithMany(u => u.ShelfItems)
+                .HasForeignKey(s => s.UserShelfId);
+        });
+
+        modelBuilder.Entity<UserShelf>()
+            .Property(s => s.Shelf)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Review>(entity =>
+        {
+            entity.HasIndex(r => new { r.UserId, r.BookId }).IsUnique();
+
+            entity.Property(r => r.Rating)
+                .HasAnnotation("Range", new[] { 1, 5 });
+
+            entity.HasOne(r => r.User)
+                .WithMany(u => u.Reviews)
+                .HasForeignKey(r => r.UserId);
+
+            entity.HasOne(r => r.Book)
+                .WithMany(b => b.Reviews)
+                .HasForeignKey(r => r.BookId);
+        });
     }
 }
