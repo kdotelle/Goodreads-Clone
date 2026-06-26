@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using OkayReads.API.Services;
+using OkayReads.API.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,10 +41,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-var test = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserShelfService, UserShelfService>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 

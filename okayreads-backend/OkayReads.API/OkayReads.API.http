@@ -1,6 +1,6 @@
 @OkayReads.API_HostAddress = http://localhost:5255
 
-GET {{OkayReads.API_HostAddress}}/weatherforecast/
+GET http://localhost:5255/api/User
 Accept: application/json
 
 ###
