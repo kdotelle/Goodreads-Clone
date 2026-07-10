@@ -1,9 +1,11 @@
 using System.Collections;
 using OkayReads.Models;
+using OkayReads.API.DTOs;
 
 namespace OkayReads.API.Services.IServices;
 
 public interface IBookService
 {
-    Task<IEnumerable<Book>> GetAllBooksAsync();
+    Task<BookDto?> GetBookByIdAsync(int id);
+    Task<BookDto> GetOrCreateAsync(GoogleBookDto book);
 }
