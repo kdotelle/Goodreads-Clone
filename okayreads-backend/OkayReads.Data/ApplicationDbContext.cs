@@ -28,7 +28,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<ShelfItem>(entity =>
         {
-            entity.HasIndex(s => new { s.UserId, s.BookId, s.UserShelfId }).IsUnique();
+            entity.HasIndex(s => new { s.UserId, s.BookId }).IsUnique();
 
             entity.HasOne(s => s.Book)
                 .WithMany(b => b.ShelfItems)

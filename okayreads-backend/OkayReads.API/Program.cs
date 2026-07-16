@@ -49,6 +49,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserShelfService, UserShelfService>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IShelfService, ShelfService>();
 
 var app = builder.Build();
 

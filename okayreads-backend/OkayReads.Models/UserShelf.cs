@@ -5,7 +5,7 @@ public class UserShelf
     public int Id { get; set; }
     public int UserId { get; set; }
 
-    public ShelfType Shelf { get; set; }
+    public ShelfType ShelfType { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

@@ -61,7 +61,7 @@ public class BookService : IBookService
          //returning book b/c private method never crosses the API boundary
      }
 
-     private static BookDto MapToDto(Book book)
+     public static BookDto MapToDto(Book book)
      {
          return new BookDto(
             book.Id,

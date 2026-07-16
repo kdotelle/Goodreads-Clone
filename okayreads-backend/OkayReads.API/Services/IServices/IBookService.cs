@@ -1,5 +1,3 @@
-using System.Collections;
-using OkayReads.Models;
 using OkayReads.API.DTOs;
 
 namespace OkayReads.API.Services.IServices;
